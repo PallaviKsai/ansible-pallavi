@@ -1,0 +1,2 @@
+serverpath=/home/rig
+target ansible_host=52.168.175.97 ansible_ssh_pass=digitalrig@123
