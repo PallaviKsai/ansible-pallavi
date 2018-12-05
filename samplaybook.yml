@@ -1,0 +1,23 @@
+
+---
+-
+  hosts: target
+  name: "Deployment to target servers"
+  become: true
+  tasks:
+    - command: chdir={{serverpath}}/pallavi/maven-project curl -u admin:rigaDapt@devOps -O "http://52.15.238.157:8081/artifactory/local-repo/webapp.war"
+      name: "Download Artifact"
+
+    - name: "Copy war file to tomcat"
+      command: "cp {{ serverpath }}/pallavi/maven-project/webapp.war /home/rig/apache-tomcat-8.5.35/webapps/"
+  vars:
+    serverpath: /home/rig
+-
+  hosts: target
+  name: "Start tomcat server"
+  tasks:
+    -
+      command: "sh {{ serverpath }}/apache-tomcat-8.5.35/bin/startup.sh"
+      name: "start tomcat service"
+  vars:
+    serverpath: /home/rig
